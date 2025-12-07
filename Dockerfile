@@ -1,12 +1,5 @@
-FROM maven:3.8.5-eclipse-temurin-17
-
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-
-# Copy everything
-COPY . .
-
-# Build and run in one step
-RUN mvn clean package -DskipTests
-
+COPY target/*.jar app.jar
 EXPOSE 8080
-CMD ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
