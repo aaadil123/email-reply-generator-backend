@@ -1,5 +1,16 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jdk-alpine
+
 WORKDIR /app
-COPY target/*.jar app.jar
+
+# Copy everything
+COPY . .
+
+# Install Maven
+RUN apk add --no-cache maven
+
+# Build the JAR
+RUN mvn clean package -DskipTests
+
+# Run the JAR
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "target/*.jar"]
