@@ -1,16 +1,29 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Build stage
+FROM maven:3.8.5-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-# Copy everything
-COPY . .
+# Copy Maven files
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Install Maven
-RUN apk add --no-cache maven
+# Copy source code
+COPY src ./src
 
-# Build the JAR
+# Build the application
 RUN mvn clean package -DskipTests
 
-# Run the JAR
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "target/*.jar"]
+# Run stage
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+# Copy the JAR from builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Render uses PORT environment variable
+ENV PORT=8080
+EXPOSE $PORT
+
+# Run the application
+CMD ["sh", "-c", "java -jar -Dserver.port=${PORT} app.jar"]
