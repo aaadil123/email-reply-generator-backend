@@ -1,22 +1,12 @@
-# Use official OpenJDK 17
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
+# If you have pre-built JAR
+COPY target/*.jar app.jar
 
-# Make wrapper executable
-RUN chmod +x ./mvnw
+# Or if building from source (multi-stage)
+# COPY --from=builder /app/target/*.jar app.jar
 
-# Copy source code
-COPY src ./src
-
-# Build the application
-RUN ./mvnw clean package -DskipTests
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "target/*.jar"]
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
