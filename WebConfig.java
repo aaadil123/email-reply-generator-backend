@@ -12,12 +12,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/")
-                        .allowedOrigins(
-                                "https://aaadil123.github.io",
-                                "https://aaadil123.github.io/email-reply-generator-frontend"
-                        )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedOrigins("https://aaadil123.github.io")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .exposedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
