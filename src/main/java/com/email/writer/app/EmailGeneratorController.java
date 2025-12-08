@@ -13,6 +13,11 @@ public class EmailGeneratorController   {
     private final EmailGeneratorService
             emailGeneratorService;
 
+    @RequestMapping(value = "/generate", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/generate")
     public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest){
         String response = emailGeneratorService.generateEmailReply(emailRequest);
