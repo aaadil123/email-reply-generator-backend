@@ -12,7 +12,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/")
-                        .allowedOrigins("https://aaadil123.github.io/email-reply-generator-frontend/")
+                        .allowedOrigins(
+                                "https://aaadil123.github.io",
+                                "https://aaadil123.github.io/email-reply-generator-frontend"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
