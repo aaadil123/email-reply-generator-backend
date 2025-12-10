@@ -1,5 +1,6 @@
 package com.email.writer.app;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

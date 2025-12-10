@@ -1,32 +1,21 @@
 package com.email.writer.app;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "https://aaadil123.github.io")
 @RestController
 @RequestMapping("/api/email")
 @AllArgsConstructor
-public class EmailGeneratorController   {
+@CrossOrigin(origins = "*")
+public class EmailGeneratorController {
 
-    private final EmailGeneratorService
-            emailGeneratorService;
-
-    @RequestMapping(value = "/generate", method = RequestMethod.OPTIONS)
-    public ResponseEntity<?> handleOptions() {
-        return ResponseEntity.ok().build();
-    }
+    private final EmailGeneratorService emailGeneratorService;
 
     @PostMapping("/generate")
-    public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest){
+    public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest) {
         String response = emailGeneratorService.generateEmailReply(emailRequest);
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/test")
-    public String test() {
-        return "Working!";
-    }
-
 }

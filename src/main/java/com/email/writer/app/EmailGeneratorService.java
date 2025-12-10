@@ -1,21 +1,18 @@
 package com.email.writer.app;
 
-import jakarta.websocket.OnClose;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.client.WebClient;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class EmailGeneratorService {
-
-    private final WebClient webClient;
+    private WebClient webClient;
 
     @Value("${gemini.api.url}")
     private String geminiApiUrl;
