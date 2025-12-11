@@ -12,7 +12,8 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "https://your-frontend-domain.com")
+                        .allowedOrigins("http://localhost:5173/email-reply-generator-frontend/",
+                                "https://aaadil123.github.io/email-reply-generator-frontend/")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
