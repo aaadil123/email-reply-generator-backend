@@ -13,7 +13,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/api/email/**")
                         .allowedOrigins(
                                 "http://localhost:5173",
                                 "https://aaadil123.github.io"
