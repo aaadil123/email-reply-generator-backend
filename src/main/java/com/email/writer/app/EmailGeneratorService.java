@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,6 +21,11 @@ public class EmailGeneratorService {
 
     @Value("${gemini.api.key}")
     private String geminiApiKey;
+
+    @PostConstruct
+    public void testEnv() {
+        System.out.println("GEMINI URL = " + geminiApiUrl + geminiApiKey);
+    }
 
     public EmailGeneratorService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.build();
@@ -40,7 +47,8 @@ public class EmailGeneratorService {
         // Do request and get response
         String response = webClient.post()
                 .uri(geminiApiUrl + geminiApiKey)
-                .header("Content-Type","application/json")
+//                .header("Content-Type","application/json")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)

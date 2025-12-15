@@ -11,18 +11,14 @@ public class EmailGeneratorController {
 
     private final EmailGeneratorService emailGeneratorService;
 
-    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
-    public ResponseEntity<?> handlePreflight() {
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/generate")
     public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest) {
         String response = emailGeneratorService.generateEmailReply(emailRequest);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/test")
-    public  String test(){
+    public String test() {
         return "Working";
     }
 }
